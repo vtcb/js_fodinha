@@ -3,7 +3,7 @@ function main() {
 
     setInterval(function() {
         var info = "";
-        info += deck;
+        info += players.join('|');
         IF.innerHTML = info;
     }, 100);
 
@@ -18,7 +18,18 @@ function main() {
 
     deck = new Deck();
 
-    deck.generate();
+    players = [
+        new Player(),
+        new Player(),
+        new Player()
+    ];
 
-    player = new Player();
+    player = players[0];
+
+
+
+    deck.generate();
+    deck.shuffle();
+
+    deck.distribute(players, 3);
 }

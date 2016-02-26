@@ -28,12 +28,25 @@ Deck.prototype.sort = function() {
     this.cards.sort(Card.prototype.sortComparator);
 };
 
+Deck.prototype.at = function(index) {
+    return this.cards.at(index);
+};
+
 Deck.prototype.draw = function() {
     return this.cards.shift();
 };
 
 Deck.prototype.push = function(card) {
     this.cards.push(card);
+};
+
+Deck.prototype.remove = function(index) {
+    var tail = this.cards.splice(index);
+    var card = tail.shift();
+
+    this.cards.concat(tail);
+
+    return card;
 };
 
 Deck.prototype.size = function() {
@@ -48,3 +61,10 @@ Deck.prototype.toString = function() {
     return this.cards.toString();
 };
 
+Deck.prototype.distribute = function(players, qty) {
+    for (var times = 0; times < qty; times++) {
+        for(var player of players) {
+            player.pega(this.draw());
+        }
+    }
+};
