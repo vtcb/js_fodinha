@@ -5,4 +5,8 @@ function main() {
         new Card(5, 3),
         new Card(0, 1)
     ];
+
+    deck = new Deck();
+
+    deck.generate();
 }
