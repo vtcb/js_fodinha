@@ -6,6 +6,8 @@ function Interface(id, game) {
     var IF = document.getElementById(id);
     var game = game;
 
+    IF.align = 'center';
+
     this.update = function() {
         var info = '' + game;
 

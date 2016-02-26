@@ -5,9 +5,14 @@ function main() {
 
     game.advance();
     game.startSet();
+    game.bet('id1', 3);
 
-/*
+    // Testing variables
     deck = new Deck();
+
+    deck.generate();
+    deck.shuffle();
+/*
 
     players = [
         new Player(),
@@ -18,9 +23,6 @@ function main() {
     player = players[0];
 
 
-
-    deck.generate();
-    deck.shuffle();
 
     deck.distribute(players, 3);
 */

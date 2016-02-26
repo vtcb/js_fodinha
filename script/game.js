@@ -7,9 +7,9 @@
  * The i-th set has two parts: Bet Stage [-1], Draw Stages [0,i)//, Idle Stage [i].
  */
 function Game(player_ids) {
-    this.players = [];
+    this.players = {};
     for(var id of player_ids) {
-        this.players.push(new Player(id));
+        this.players[id] = new Player(id);
     }
 
     // this.deck = new Deck();
@@ -25,19 +25,16 @@ function Game(player_ids) {
 
 Game.prototype.toString = function() {
     var str = 'Fodinha Game\n';
+
     str +=    'Players:\n'
 
-    for(var player of this.players) {
+    for(var id in this.players) { var player = this.players[id];
         str += '    ' + player + '\n';
     }
 
     str += 'Set:   ' + this.set   + '\n';
 
-    str += 'Round: ' + this.round;
-    if(this.round == -1) {
-        str += '(Bet Stage)';
-    }
-    str += '\n';
+    str += 'Round: ' + (this.round == -1 ? 'Bet Stage' : this.round) + '\n';
 
     str += 'Round finished: ' + this.round_finished + '\n';
 
@@ -47,7 +44,7 @@ Game.prototype.toString = function() {
 /* Sets and Rounds logic */
 Game.prototype.endBetStage = function() {
     var all_bet = true;
-    for(var player of this.players) {
+    for(var id in this.players) { var player = this.players[id];
         all_bet = all_bet && player.bet;
     }
 
@@ -61,7 +58,7 @@ Game.prototype.endBetStage = function() {
 
 Game.prototype.endDrawStage = function() {
     var all_chose = true;
-    for(var player of this.players) {
+    for(var id in this.players) { var player = this.players[id];
         all_chose = all_chose && player.chosen;
     }
 
@@ -101,7 +98,7 @@ Game.prototype.endStage = function() {
 
 /* Player moves logic */
 Game.prototype.bet = function(player_id, bet) {
-    var player = this.findPlayer(player_id);
+    var player = this.players[player_id];
 
     if(player.bet) {
         return false;
@@ -112,7 +109,7 @@ Game.prototype.bet = function(player_id, bet) {
 };
 
 Game.prototype.choose = function(player_id, choice) {
-    var player = this.findPlayer(player_id);
+    var player = this.players[player_id];
 
     if(player.chosen) {
         return false;
@@ -129,6 +126,7 @@ Game.prototype.startSet = function() {
     deck.shuffle();
     deck.distribute(this.players, this.set);
 
+    return;
     for(var player of this.players) { // TODO: Perhaps won't be needed later
         player.bet = false;
         player.chosen = false;
@@ -136,6 +134,7 @@ Game.prototype.startSet = function() {
 };
 
 Game.prototype.findPlayer = function(id) {
+    //var player = this.findPlayer(player_id);
     return this.players.filter( function(player){ return player.id == id; } )[0];
 };
 

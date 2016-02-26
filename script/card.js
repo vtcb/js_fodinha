@@ -28,6 +28,7 @@ Card.prototype.sortValue = function() {
 };
 
 Card.prototype.sortComparator = function(a, b) {
+    //console.log('('+a+','+b+') - ('+a.sortValue()+','+b.sortValue()+')')
     return a.sortValue() > b.sortValue();
 };
 
