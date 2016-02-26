@@ -1,6 +1,9 @@
 function main() {
-    var IF = new Interface("interface");
+    this.game = new Game(['id1', 'id2', 'id3']);
 
+    var IF = new Interface("interface", this.game);
+
+/*
     deck = new Deck();
 
     players = [
@@ -17,4 +20,5 @@ function main() {
     deck.shuffle();
 
     deck.distribute(players, 3);
+*/
 }

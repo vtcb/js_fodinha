@@ -2,13 +2,14 @@
  *
  * Prints stuff in the screen.
  */
-function Interface(id) {
+function Interface(id, game) {
     var IF = document.getElementById(id);
+    var game = game;
 
     this.update = function() {
-        var info = "";
-        info += players.join('|');
-        IF.innerHTML = info;
+        var info = '' + game;
+
+        IF.innerText = info;
     }
 
     setInterval(this.update, 100);
