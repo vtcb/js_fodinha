@@ -12,7 +12,7 @@ function Game(player_ids) {
         this.players.push(new Player(id));
     }
 
-    this.deck = new Deck();
+    // this.deck = new Deck();
 
     this.set   = 0;
     this.round = -1;
@@ -20,7 +20,7 @@ function Game(player_ids) {
     this.set_starter = 0;
     this.round_starter = 0;
 
-    this.round_finished = false;
+    this.round_finished = true;
 }
 
 Game.prototype.toString = function() {
@@ -44,6 +44,7 @@ Game.prototype.toString = function() {
     return str;
 };
 
+/* Sets and Rounds logic */
 Game.prototype.endBetStage = function() {
     var all_bet = true;
     for(var player of this.players) {
@@ -96,6 +97,46 @@ Game.prototype.endStage = function() {
     } else {
         return false;
     }
+};
+
+/* Player moves logic */
+Game.prototype.bet = function(player_id, bet) {
+    var player = this.findPlayer(player_id);
+
+    if(player.bet) {
+        return false;
+    } else {
+        player.bet = bet;
+        return true;
+    }
+};
+
+Game.prototype.choose = function(player_id, choice) {
+    var player = this.findPlayer(player_id);
+
+    if(player.chosen) {
+        return false;
+    } else {
+        player.chosen = choice;
+        return true;
+    }
+};
+
+Game.prototype.startSet = function() {
+    var deck = new Deck();
+
+    deck.generate();
+    deck.shuffle();
+    deck.distribute(this.players, this.set);
+
+    for(var player of this.players) { // TODO: Perhaps won't be needed later
+        player.bet = false;
+        player.chosen = false;
+    }
+};
+
+Game.prototype.findPlayer = function(id) {
+    return this.players.filter( function(player){ return player.id == id; } )[0];
 };
 
 Game.prototype.update = function() {

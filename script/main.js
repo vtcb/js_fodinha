@@ -3,6 +3,9 @@ function main() {
 
     var IF = new Interface("interface", this.game);
 
+    game.advance();
+    game.startSet();
+
 /*
     deck = new Deck();
 
