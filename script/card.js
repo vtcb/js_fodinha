@@ -1,3 +1,8 @@
+/** Card
+ *
+ * A card with rank and suit.
+ * It's value is calculated based on the rules of Fodinha.
+ */
 function Card(rank, suit) {
     this.rank = rank;
     this.suit = suit;

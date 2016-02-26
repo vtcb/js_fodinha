@@ -1,3 +1,8 @@
+/** Deck
+ *
+ * A collection of cards.
+ * Supports FIFO and random removal.
+ */
 function Deck() {
     this.cards = [];
 }

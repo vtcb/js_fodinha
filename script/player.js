@@ -1,3 +1,7 @@
+/** Player
+ *
+ * A player of Fodinha.
+ */
 function Player() {
     this.lives = Player.prototype.LIVES;
 
